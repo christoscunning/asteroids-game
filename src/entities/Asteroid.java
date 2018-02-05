@@ -1,5 +1,7 @@
 package entities;
 
+import processing.core.PShape;
+
 /** The asteroid class
  * 
  * @author Christos Cunning
@@ -7,5 +9,5 @@ package entities;
  */
 
 public class Asteroid {
-
+	
 }
