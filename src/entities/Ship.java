@@ -16,7 +16,8 @@ public class Ship {
 	
 	public static final float MAX_SPEED = 5;
 	public static final float MAX_ACCELERATION = 0.5f;
-	public static final float MAX_TURN_SPEED = 5; // in degrees
+	public static final float MAX_TURN_SPEED = 3; // in degrees
+	public static final float DRAG = 0.03f;
 	
 	private float x,y; //position of ship
 	private float dir; //direction of ship in radians
@@ -65,30 +66,26 @@ public class Ship {
 	 */
 	public void move () {
 		
-		
-		
 		x += deltaX;
 		y += deltaY;
-		System.out.println(deltaX + " " + deltaY);
-		System.out.println("speed" + spd);
 		
 		//drag 
 		if(deltaX > 0) {
-			deltaX -= 0.05;
+			deltaX -= DRAG;
 		} else if(deltaX < 0) {
-			deltaX += 0.05;
+			deltaX += DRAG;
 		}
 		
 		if(deltaY > 0) {
-			deltaY -= 0.05;
+			deltaY -= DRAG;
 		} else if (deltaY < 0) {
-			deltaY += 0.05;
+			deltaY += DRAG;
 		}
 			
 		if(spd > 0) {
-			spd -= 0.05;
+			spd -= DRAG;
 		} else if (spd < 0) {
-			spd += 0.05;
+			spd += DRAG;
 		}
 		
 		//Next check for edge of screen and wrap around

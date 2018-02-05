@@ -26,7 +26,7 @@ public class Main extends PApplet {
 				player.delta(player.getSpeed(), player.getDirection());
 			}
 		} else if (player.isDecelerating) {
-			if(player.getSpeed() > -Ship.MAX_SPEED) {
+			if(player.getSpeed() > -Ship.MAX_SPEED/2) {
 				player.speedDown(Ship.MAX_ACCELERATION);
 				player.delta(player.getSpeed(), player.getDirection());
 			}
