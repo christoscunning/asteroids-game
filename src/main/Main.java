@@ -21,14 +21,14 @@ public class Main extends PApplet {
 		
 		// Move then draw the player sprite
 		if(player.isAccelerating) {
-			if(player.getSpeed() < Ship.MAX_SPEED) player.speedUp(1);
+			if(player.getSpeed() < Ship.MAX_SPEED) {
+				player.speedUp(1);
+				player.delta(player.getSpeed(), player.getDirection());
+			}
 		} else if (player.isDecelerating) {
-			if(player.getSpeed() > -Ship.MAX_SPEED) player.speedDown(1);
-		} else {
-			if(player.getSpeed() > 0) {
-				player.speedDown(0.05f);
-			} else if(player.getSpeed() < 0) {
-				player.speedUp(0.05f);
+			if(player.getSpeed() > -Ship.MAX_SPEED) {
+				player.speedDown(1);
+				player.delta(player.getSpeed(), player.getDirection());
 			}
 		}
 		if(player.isTurningCW) {

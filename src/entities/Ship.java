@@ -20,6 +20,7 @@ public class Ship {
 	private float dir; //direction of ship in radians
 	private float spd; //speed of ship
 	private float size; // pseudo radius
+	private float deltaX, deltaY; // to get 
 	
 	PShape ship;
 	
@@ -61,8 +62,32 @@ public class Ship {
 	 * 
 	 */
 	public void move () {
-		x += spd * PApplet.cos(dir);
-		y += spd * PApplet.sin(dir);
+		
+		
+		
+		x += deltaX;
+		y += deltaY;
+		System.out.println(deltaX + " " + deltaY);
+		System.out.println("speed" + spd);
+		
+		//drag 
+		if(deltaX > 0) {
+			deltaX -= 0.05;
+		} else if(deltaX < 0) {
+			deltaX += 0.05;
+		}
+		
+		if(deltaY > 0) {
+			deltaY -= 0.05;
+		} else if (deltaY < 0) {
+			deltaY += 0.05;
+		}
+			
+		if(spd > 0) {
+			spd -= 0.05;
+		} else if (spd < 0) {
+			spd += 0.05;
+		}
 		
 		//Next check for edge of screen and wrap around
 		if (x+size > Main.SCREEN_W) {
@@ -82,6 +107,11 @@ public class Ship {
 	/* */
 	public void draw(PApplet p) {
 		p.shape(ship,x,y);
+	}
+	
+	public void delta (float speed, float direction) {
+		deltaX = speed * PApplet.cos(direction);
+		deltaY = speed * PApplet.sin(direction);
 	}
 	
 	public void speedUp(float ammount) {
@@ -121,6 +151,10 @@ public class Ship {
 	/* Getters and setters */
 	public float getSpeed() {
 		return spd;
+	}
+	
+	public float getDirection() {
+		return dir;
 	}
 	
 }
