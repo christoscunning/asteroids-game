@@ -15,11 +15,15 @@ import processing.core.PApplet;
 public class Ship {
 	
 	public static final float MAX_SPEED = 5;
+	public static final float MAX_ACCELERATION = 0.5f;
+	public static final float MAX_TURN_SPEED = 3; // in degrees
+	public static final float DRAG = 0.03f;
 	
 	private float x,y; //position of ship
 	private float dir; //direction of ship in radians
 	private float spd; //speed of ship
 	private float size; // pseudo radius
+	private float deltaX, deltaY; // to get 
 	
 	PShape ship;
 	
@@ -61,8 +65,28 @@ public class Ship {
 	 * 
 	 */
 	public void move () {
-		x += spd * PApplet.cos(dir);
-		y += spd * PApplet.sin(dir);
+		
+		x += deltaX;
+		y += deltaY;
+		
+		//drag 
+		if(deltaX > 0) {
+			deltaX -= DRAG;
+		} else if(deltaX < 0) {
+			deltaX += DRAG;
+		}
+		
+		if(deltaY > 0) {
+			deltaY -= DRAG;
+		} else if (deltaY < 0) {
+			deltaY += DRAG;
+		}
+			
+		if(spd > 0) {
+			spd -= DRAG;
+		} else if (spd < 0) {
+			spd += DRAG;
+		}
 		
 		//Next check for edge of screen and wrap around
 		if (x+size > Main.SCREEN_W) {
@@ -82,6 +106,11 @@ public class Ship {
 	/* */
 	public void draw(PApplet p) {
 		p.shape(ship,x,y);
+	}
+	
+	public void delta (float speed, float direction) {
+		deltaX = speed * PApplet.cos(direction);
+		deltaY = speed * PApplet.sin(direction);
 	}
 	
 	public void speedUp(float ammount) {
@@ -121,6 +150,10 @@ public class Ship {
 	/* Getters and setters */
 	public float getSpeed() {
 		return spd;
+	}
+	
+	public float getDirection() {
+		return dir;
 	}
 	
 }
