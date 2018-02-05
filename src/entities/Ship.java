@@ -1,9 +1,12 @@
 package entities;
 
 import processing.core.PShape;
+import main.Main;
 import processing.core.PApplet;
 
 /** The player controlled character: ship class
+ * 
+ *  TODO: Fix controls
  * 
  * @author Christos Cunning
  *
@@ -11,12 +14,19 @@ import processing.core.PApplet;
 
 public class Ship {
 	
+	public static final float MAX_SPEED = 5;
+	
 	private float x,y; //position of ship
 	private float dir; //direction of ship in radians
 	private float spd; //speed of ship
-	private float size;
+	private float size; // pseudo radius
 	
 	PShape ship;
+	
+	public boolean isAccelerating;
+	public boolean isDecelerating;
+	public boolean isTurningCW;
+	public boolean isTurningCCW;
 	
 	/** Constructor method for ship object
 	 *  Player controlled character
@@ -33,6 +43,11 @@ public class Ship {
 		this.dir = (float) (dir + (3*Math.PI)/2);
 		this.spd = spd;
 		this.size = size;
+		
+		isAccelerating = false;
+		isDecelerating = false;
+		isTurningCW = false;
+		isTurningCCW = false;
 	}
 	
 	/** Move method for ship class
@@ -50,11 +65,41 @@ public class Ship {
 		y += spd * PApplet.sin(dir);
 		
 		//Next check for edge of screen and wrap around
+		if (x+size > Main.SCREEN_W) {
+			x = 0+size;
+		}
+		if (x-size < 0) {
+			x = Main.SCREEN_W-size;
+		}
+		if (y+size > Main.SCREEN_H) {
+			y = 0 + size;
+		}
+		if (y-size < 0) {
+			y = Main.SCREEN_H-size;
+		}
 	}
 	
 	/* */
 	public void draw(PApplet p) {
 		p.shape(ship,x,y);
+	}
+	
+	public void speedUp(float ammount) {
+		spd += ammount;
+	}
+	
+	public void speedDown(float ammount) {
+		spd -= ammount;
+	}
+	
+	/** Turns the player controlled ship sprite by a specified angle, given in degrees.
+	 *  positive angles turn the ship clockwise and vice versa.
+	 * 
+	 * @param angle the angle to rotate by, given in degrees
+	 */
+	public void turn (float angle) {
+		dir += Math.toRadians((double) angle);
+		ship.rotate((float) Math.toRadians((double) angle));
 	}
 	
 	/* Run once at launch of application to create custom shape for ship*/
@@ -71,6 +116,11 @@ public class Ship {
 		ship.vertex(0, -size*2);
 		
 		ship.endShape();
+	}
+	
+	/* Getters and setters */
+	public float getSpeed() {
+		return spd;
 	}
 	
 }
