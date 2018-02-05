@@ -15,6 +15,8 @@ import processing.core.PApplet;
 public class Ship {
 	
 	public static final float MAX_SPEED = 5;
+	public static final float MAX_ACCELERATION = 0.5f;
+	public static final float MAX_TURN_SPEED = 5; // in degrees
 	
 	private float x,y; //position of ship
 	private float dir; //direction of ship in radians
