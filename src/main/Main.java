@@ -10,6 +10,8 @@ public class Main extends PApplet {
 	
 	Ship player = new Ship(SCREEN_W/2,SCREEN_H/2,0,0,10);
 	
+	Asteroid asstest = new Asteroid(100,100,20);
+	
 	/* Run once for every frame */
 	public void draw() {
 		clear();
@@ -39,6 +41,8 @@ public class Main extends PApplet {
 		player.move();
 		player.draw(this);
 		
+		//ass test
+		asstest.draw(this);
 		
 	}
 	
@@ -82,6 +86,9 @@ public class Main extends PApplet {
 		
 		// setup player sprite (draw custom shape to screen)
 		player.setup(this);
+		
+		//setup test asteroid
+		asstest.setup(this);
 	}
 	
 	/* Run once at very start */
