@@ -1,6 +1,9 @@
 package main;
 
 import processing.core.PApplet;
+
+import java.util.ArrayList;
+
 import entities.*;
 
 public class Main extends PApplet {
@@ -10,14 +13,12 @@ public class Main extends PApplet {
 	
 	Ship player = new Ship(SCREEN_W/2,SCREEN_H/2,0,0,10);
 	
-	Asteroid asstest = new Asteroid(100,100,20);
+	// ArrayList of Asteroids
+	ArrayList<Asteroid> astList = new ArrayList<Asteroid>();
 	
 	/* Run once for every frame */
 	public void draw() {
 		clear();
-		
-		// Run keyPressed function to check for user input
-		
 		
 		
 		
@@ -41,9 +42,12 @@ public class Main extends PApplet {
 		player.move();
 		player.draw(this);
 		
-		//ass test
-		asstest.draw(this);
-		
+		// Move and Draw all asteroids
+		for(int i = 0;i<astList.size();i++) {
+			astList.get(i).move();
+			astList.get(i).draw(this);;
+			//temp.draw(this);
+		}
 	}
 	
 	/* Checking for keyboard input from user */
@@ -87,8 +91,15 @@ public class Main extends PApplet {
 		// setup player sprite (draw custom shape to screen)
 		player.setup(this);
 		
-		//setup test asteroid
-		asstest.setup(this);
+		// add asteroids to the astList
+		for(int i=0; i<5;i++) {
+			float x = 50f + Asteroid.getRandNumBetween(SCREEN_W-100);
+			float y = 50f + Asteroid.getRandNumBetween(SCREEN_H-100);
+			Asteroid a = new Asteroid(x,y,30);
+			astList.add(a);
+			a.setup(this);
+		}
+		
 	}
 	
 	/* Run once at very start */

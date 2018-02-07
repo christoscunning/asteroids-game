@@ -2,6 +2,7 @@ package entities;
 
 import processing.core.PApplet;
 import processing.core.PShape;
+import main.Main;
 
 /** The asteroid class
  * 
@@ -11,7 +12,7 @@ import processing.core.PShape;
 
 public class Asteroid {
 
-	public static final float SPEED = 3;
+	public static final float SPEED = 2;
 	
 	private float x,y; //position of ship
 	private float dir; //direction of ship in radians
@@ -24,7 +25,6 @@ public class Asteroid {
 	 * 
 	 * @param x initial x position of the asteroid
 	 * @param y initial y position of the asteroid
-	 * @param dir initial direction of asteroid (in radians) (random between 0,2pi)
 	 * @param radius radius of the asteroid
 	 */
 	public Asteroid (float x, float y, float radius) {
@@ -34,12 +34,27 @@ public class Asteroid {
 		this.radius = radius;
 	}
 	
-	public void draw (PApplet p) {
-		p.shape(asteroid,x,y);
+	public void move () {
+		x += SPEED * PApplet.cos(dir);
+		y += SPEED * PApplet.sin(dir);
+		
+		//Next check for edge of screen and wrap around
+				if (x+radius > Main.SCREEN_W) {
+					x = 0+radius;
+				}
+				if (x-radius < 0) {
+					x = Main.SCREEN_W-radius;
+				}
+				if (y+radius > Main.SCREEN_H) {
+					y = 0 + radius;
+				}
+				if (y-radius < 0) {
+					y = Main.SCREEN_H-radius;
+				}
 	}
 	
-	public void move () {
-		
+	public void draw (PApplet p) {
+		p.shape(asteroid,x,y);
 	}
 	
 	public void setup (PApplet p) {

@@ -1,8 +1,8 @@
 package entities;
 
 import processing.core.PShape;
-import main.Main;
 import processing.core.PApplet;
+import main.Main;
 
 /** The player controlled character: ship class
  * 
@@ -16,7 +16,7 @@ public class Ship {
 	
 	public static final float MAX_SPEED = 5;
 	public static final float MAX_ACCELERATION = 0.5f;
-	public static final float MAX_TURN_SPEED = 3; // in degrees
+	public static final float MAX_TURN_SPEED = 5; // in degrees
 	public static final float DRAG = 0.03f;
 	
 	private float x,y; //position of ship
