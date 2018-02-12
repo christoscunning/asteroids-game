@@ -83,6 +83,7 @@ public class Main extends PApplet {
 		if(Bullet.getBCount()<5) {
 			System.out.println("constructing");
 			Bullet b = new Bullet(player.getX(), player.getY(), player.getDirection(), this);
+			b.setup(this);
 			bList.add(b);
 		}
 		System.out.println("x:"+player.getX()+" y:"+player.getY()+" dir:"+player.getDirection());
@@ -121,8 +122,6 @@ public class Main extends PApplet {
 			astList.add(a);
 			a.setup(this);
 		}
-		
-		Bullet.setup(this);
 	}
 	
 	/* Run once at very start */

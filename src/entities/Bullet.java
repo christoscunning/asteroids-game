@@ -6,21 +6,20 @@ import processing.core.PConstants;
 import main.Main;
 
 public class Bullet {
-	public static final float SPD = 3;
+	public static final float SPD = 10;
 	public static final float bWIDTH = 3;
 	public static final float bHEIGHT = 8;
 	
 	private float x,y;
 	private float dir; // value in rads
 	private static int bcount = 0;
-	private static PShape b;
-	private PShape bullet;
+	private PShape b;
 	
 	/** Constructor for bullet object
 	 *  Also preform setup in constructor
 	 * 
 	 * @param x initial x position of bullet
-	 * @param y initial y position of bullet
+	 * @param y initial y position of bullet 
 	 * @param dir initial direction of bullet
 	 */
 	public Bullet (float x, float y, float dir, PApplet p) {
@@ -28,8 +27,6 @@ public class Bullet {
 		this.y = y;
 		this.dir = dir;
 		bcount++;
-		bullet = b;
-		bullet.rotate(dir - (float)(3*Math.PI)/2);
 	}
 	
 
@@ -53,13 +50,14 @@ public class Bullet {
 	}
 	
 	public void draw (PApplet p) {
-		p.shape(bullet,x,y);
+		p.shape(b,x,y);
 	}
 	
-	public static void setup (PApplet p) {
+	public void setup (PApplet p) {
 		// RECT: x,y,w,h
 		b = p.createShape(PConstants.RECT,0,0,bWIDTH,bHEIGHT);
 		b.setFill(255);
+		b.rotate(dir - (float)(3*Math.PI)/2);
 	}
 	
 	
