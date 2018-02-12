@@ -53,8 +53,11 @@ public class Main extends PApplet {
 		
 		// Move and Draw all bullets
 		for (int i = 0; i<bList.size();i++) {
-			bList.get(i).move();
-			bList.get(i).draw(this);
+			if(bList.get(i).move() == 1) {
+				bList.remove(i);
+			} else {
+				bList.get(i).draw(this);
+			}
 		}
 	}
 	

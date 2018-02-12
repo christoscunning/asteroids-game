@@ -15,6 +15,12 @@ public class Bullet {
 	private static int bcount = 0;
 	private PShape b;
 	
+	// Timing stuff
+	long lasttime;
+	long deltaT;
+	
+	private float maxDist;
+	
 	/** Constructor for bullet object
 	 *  Also preform setup in constructor
 	 * 
@@ -27,10 +33,16 @@ public class Bullet {
 		this.y = y;
 		this.dir = dir;
 		bcount++;
+		maxDist = 0;
+		lasttime = System.currentTimeMillis();
 	}
 	
-
-	public void move () {
+	/** Move method for bullet
+	 *  Checks how long bullet has been active, once it goes a certain distance, get rid of it
+	 * 
+	 * @return returns 0 if good, returns 1 if done
+	 */
+	public int move () {
 		x += SPD * PApplet.cos(dir);
 		y += SPD * PApplet.sin(dir);
 		
@@ -47,6 +59,21 @@ public class Bullet {
 		if (y < 0) {
 			y = Main.SCREEN_H;
 		}
+		
+		// this is completely wrong, use time instead?
+		//maxDist += Math.abs((float)Math.sqrt((SPD * PApplet.cos(dir))*(SPD * PApplet.cos(dir) + (PApplet.sin(dir))*(PApplet.sin(dir)))));
+		
+		deltaT = Math.abs(lasttime - System.currentTimeMillis());
+		lasttime = System.currentTimeMillis();
+		System.out.println(lasttime);
+		
+		maxDist += SPD * deltaT;
+		if(maxDist > 10000 ) {
+			close();
+			return 1;
+		}
+		System.out.println(maxDist);
+		return 0;
 	}
 	
 	public void draw (PApplet p) {
