@@ -79,14 +79,13 @@ public class Main extends PApplet {
 	}
 	
 	private void newB () {
-		System.out.println(Bullet.getBCount());
+		// Check if already at bullet cap
 		if(Bullet.getBCount()<5) {
-			System.out.println("constructing");
+			// if not at bullet cap, create new bullet at player x,y with player direction
 			Bullet b = new Bullet(player.getX(), player.getY(), player.getDirection(), this);
 			b.setup(this);
 			bList.add(b);
 		}
-		System.out.println("x:"+player.getX()+" y:"+player.getY()+" dir:"+player.getDirection());
 	}
 	
 	public void keyReleased() {
