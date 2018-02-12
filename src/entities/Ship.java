@@ -156,4 +156,11 @@ public class Ship {
 		return dir;
 	}
 	
+	public float getX () {
+		return x;
+	}
+	
+	public float getY () {
+		return y;
+	}
 }

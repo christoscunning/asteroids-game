@@ -15,14 +15,15 @@ public class Main extends PApplet {
 	
 	// ArrayList of Asteroids
 	ArrayList<Asteroid> astList = new ArrayList<Asteroid>();
+	// ArrayList of Bullets
+	ArrayList<Bullet> bList = new ArrayList<Bullet>();
 	
 	/* Run once for every frame */
 	public void draw() {
+		// Clear the screen
 		clear();
 		
-		
-		
-		// Move then draw the player sprite
+		// check input then move the player
 		if(player.isAccelerating) {
 			if(player.getSpeed() < Ship.MAX_SPEED) {
 				player.speedUp(Ship.MAX_ACCELERATION);
@@ -39,14 +40,21 @@ public class Main extends PApplet {
 		} else if (player.isTurningCCW) {
 			player.turn(-Ship.MAX_TURN_SPEED);
 		}
+		// Move and Draw player
 		player.move();
 		player.draw(this);
 		
 		// Move and Draw all asteroids
 		for(int i = 0;i<astList.size();i++) {
 			astList.get(i).move();
-			astList.get(i).draw(this);;
+			astList.get(i).draw(this);
 			//temp.draw(this);
+		}
+		
+		// Move and Draw all bullets
+		for (int i = 0; i<bList.size();i++) {
+			bList.get(i).move();
+			bList.get(i).draw(this);
 		}
 	}
 	
@@ -64,6 +72,20 @@ public class Main extends PApplet {
 		if (key == 'a' || key == 'A') {
 			player.isTurningCCW = true;
 		}
+		if (key == 32) {
+			System.out.println("space");
+			newB();
+		}
+	}
+	
+	private void newB () {
+		System.out.println(Bullet.getBCount());
+		if(Bullet.getBCount()<5) {
+			System.out.println("constructing");
+			Bullet b = new Bullet(player.getX(), player.getY(), player.getDirection(), this);
+			bList.add(b);
+		}
+		System.out.println("x:"+player.getX()+" y:"+player.getY()+" dir:"+player.getDirection());
 	}
 	
 	public void keyReleased() {
@@ -93,13 +115,14 @@ public class Main extends PApplet {
 		
 		// add asteroids to the astList
 		for(int i=0; i<5;i++) {
-			float x = 50f + Asteroid.getRandNumBetween(SCREEN_W-100);
-			float y = 50f + Asteroid.getRandNumBetween(SCREEN_H-100);
+			float x = 50f + Asteroid.getRandNumBetween(SCREEN_W-50);
+			float y = 50f + Asteroid.getRandNumBetween(SCREEN_H-50);
 			Asteroid a = new Asteroid(x,y,30);
 			astList.add(a);
 			a.setup(this);
 		}
 		
+		Bullet.setup(this);
 	}
 	
 	/* Run once at very start */
