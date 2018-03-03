@@ -68,7 +68,7 @@ public class Bullet {
 		System.out.println(lasttime);
 		
 		maxDist += SPD * deltaT;
-		if(maxDist > 10000 ) {
+		if(maxDist > 10000) {
 			close();
 			return 1;
 		}

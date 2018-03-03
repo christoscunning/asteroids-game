@@ -87,7 +87,6 @@ public class Asteroid {
 	public static float getRandNumBetween (float n) {
 		float ranr = ( ((float)Math.random() * n ) + 1);
 		return ranr;
-		
 	}
 	
 }

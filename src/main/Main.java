@@ -8,10 +8,10 @@ import entities.*;
 
 public class Main extends PApplet {
 	
-	public static final int SCREEN_W = 800;
-	public static final int SCREEN_H = 600;
+	public static final int SCREEN_W = 1200;
+	public static final int SCREEN_H = 900;
 	
-	Ship player = new Ship(SCREEN_W/2,SCREEN_H/2,0,0,10);
+	Ship player;
 	
 	// ArrayList of Asteroids
 	ArrayList<Asteroid> astList = new ArrayList<Asteroid>();
@@ -114,6 +114,7 @@ public class Main extends PApplet {
 		background(0);
 		
 		// setup player sprite (draw custom shape to screen)
+		player = new Ship(SCREEN_W/2,SCREEN_H/2,0,0,10);
 		player.setup(this);
 		
 		// add asteroids to the astList
