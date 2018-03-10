@@ -68,6 +68,9 @@ public class Main extends PApplet {
 		
 		// asteroid stuff
 		for(int i = 0;i<astList.size();i++) {
+			// Move and Draw all asteroids
+			astList.get(i).move();
+			astList.get(i).draw(this);
 			// check collisions
 			for (int j = 0; j < bList.size(); j++) {
 				if(astList.get(i).isCollidingWithBullet(bList.get(j))) {
@@ -84,9 +87,6 @@ public class Main extends PApplet {
 					
 				}
 			}
-			// Move and Draw all asteroids
-			astList.get(i).move();
-			astList.get(i).draw(this);
 		}
 		
 		// Move and Draw all bullets
@@ -170,7 +170,7 @@ public class Main extends PApplet {
 		size(SCREEN_W,SCREEN_H);
 	}
 	
-	
+	// Entry point for PApplet
 	public static void main(String[] args) {
 		PApplet.main("main.Main");
 	}
