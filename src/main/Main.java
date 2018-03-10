@@ -48,7 +48,6 @@ public class Main extends PApplet {
 		for(int i = 0;i<astList.size();i++) {
 			// check collisions
 			for (int j = 0; j < bList.size(); j++) {
-				System.out.println(bList.get(j));
 				if(astList.get(i).isCollidingWithBullet(bList.get(j))) {
 					// colliding
 					System.out.println("Bullet colliding with asteroid");

@@ -66,15 +66,14 @@ public class Asteroid {
 			// to avoid out of bounds exception
 			if(i == numVertex-1) {
 				// if last vertex, get line between last vertex and first vertex
-				l = new Line(asteroid.getVertex(i), asteroid.getVertex(0));
+				l = new Line(new Point(x+asteroid.getVertex(i).x, y+asteroid.getVertex(i).y), new Point(x+asteroid.getVertex(0).x, y+asteroid.getVertex(0).y));
 			} else {
 				// else just get line between vertex and next vertex
-				l = new Line(asteroid.getVertex(i), asteroid.getVertex(i+1));
-				
+				l = new Line(new Point(x+asteroid.getVertex(i).x, y+asteroid.getVertex(i).y), new Point(x+asteroid.getVertex(i+1).x, y+asteroid.getVertex(i+1).y));
 			}
 			if(LinePointCollision.isPointCollidingWithLine(new Point(b.getXCenter(), b.getYCenter()), l)) colliding = true;
 		}
-		System.out.println("is colliding: " + colliding);
+		
 		return colliding;
 	}
 	
