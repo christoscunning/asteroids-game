@@ -1,8 +1,16 @@
 package util;
 
+/** LinePointCollision class holds one method to check for collision between,
+ *  you guessed it,
+ *  a Line and a Point.
+ * 
+ * @author Christos Cunning
+ *
+ */
+
 public class LinePointCollision {
 		
-	private static float buffer = 1f;
+	private static float buffer = 1f; // The buffer distance for which the point must be within to count as "colliding" with the line
 	
 	/** Method to check for collision between a line and a point
 	 *  checks for whether point is on line (within buffer)

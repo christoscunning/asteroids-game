@@ -11,15 +11,16 @@ public class Bullet {
 	public static final float bHEIGHT = 8;
 	
 	private float x,y;
-	private float dir; // value in rads
-	private static int bcount = 0;
+	private float dir; // value in radians
+	private static int bcount = 0; // number of bullets currently in existence
 	private PShape b;
 	
 	// Timing stuff
 	long lasttime;
 	long deltaT;
 	
-	private float maxDist;
+	private float distTraveled; // distances traveled by bullet
+	private final float MAX_DIST = 10000f; // max distance bullet can travel before being destroyed
 	
 	/** Constructor for bullet object
 	 *  Also preform setup in constructor
@@ -33,7 +34,7 @@ public class Bullet {
 		this.y = y;
 		this.dir = dir;
 		bcount++;
-		maxDist = 0;
+		distTraveled = 0f;
 		lasttime = System.currentTimeMillis();
 	}
 	
@@ -60,19 +61,14 @@ public class Bullet {
 			y = Main.SCREEN_H;
 		}
 		
-		// this is completely wrong, use time instead?
-		//maxDist += Math.abs((float)Math.sqrt((SPD * PApplet.cos(dir))*(SPD * PApplet.cos(dir) + (PApplet.sin(dir))*(PApplet.sin(dir)))));
-		
 		deltaT = Math.abs(lasttime - System.currentTimeMillis());
 		lasttime = System.currentTimeMillis();
-		//System.out.println(lasttime);
 		
-		maxDist += SPD * deltaT;
-		if(maxDist > 10000) {
+		distTraveled += SPD * deltaT;
+		if(distTraveled > MAX_DIST) {
 			close();
 			return 1;
 		}
-		//System.out.println(maxDist);
 		return 0;
 	}
 	

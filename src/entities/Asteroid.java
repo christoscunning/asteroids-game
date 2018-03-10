@@ -40,18 +40,18 @@ public class Asteroid {
 		y += SPEED * PApplet.sin(dir);
 		
 		//Next check for edge of screen and wrap around
-				if (x+radius > Main.SCREEN_W) {
-					x = 0+radius;
-				}
-				if (x-radius < 0) {
-					x = Main.SCREEN_W-radius;
-				}
-				if (y+radius > Main.SCREEN_H) {
-					y = 0 + radius;
-				}
-				if (y-radius < 0) {
-					y = Main.SCREEN_H-radius;
-				}
+		if (x+radius > Main.SCREEN_W) {
+			x = 0+radius;
+		}
+		if (x-radius < 0) {
+			x = Main.SCREEN_W-radius;
+		}
+		if (y+radius > Main.SCREEN_H) {
+			y = 0 + radius;
+		}
+		if (y-radius < 0) {
+			y = Main.SCREEN_H-radius;
+		}
 	}
 	
 	public void draw (PApplet p) {
@@ -75,6 +75,17 @@ public class Asteroid {
 		}
 		
 		return colliding;
+	}
+	
+	/** Method called when asteroid is destroyed by getting hit
+	 *  by a bullet or by hitting player
+	 *  
+	 *  TODO: split into smaller asteroids when hit
+	 *  TODO: add explosion effect
+	 * 
+	 */
+	public void destroyAsteroid () {
+		// doesn't really do anything yet
 	}
 	
 	public void setup (PApplet p) {

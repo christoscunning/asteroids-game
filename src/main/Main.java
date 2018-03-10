@@ -1,5 +1,26 @@
 package main;
 
+/** Main entry point and control for Asteroid Game
+ * 
+ * 	TODO: 
+ * 		- what to do for when bullet hits asteroid (explosion effect, score, etc)
+ * 		- player collision with asteroid
+ * 		- score counter
+ * 		- player lives
+ * 		-
+ * 
+ * 	Version 0.5 (Current)
+ * 		- Added collision detection working between bullets and asteroids		
+ * 
+ * 	Version: 0.4 // (im gonna skip a bunch cause I started versions pretty late into the project)
+ * 		- Drawing for Bullets, Asteroids and Player Controller Ship all working correctly
+ * 		- All controls and movement for Player Controlled Ship working correctly so far
+ * 		- Player can shoot bullets (bullets time out after certain distance)
+ * 		- some other crap
+ * 
+ * @author Christos Cunning
+ */
+
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -17,6 +38,7 @@ public class Main extends PApplet {
 	ArrayList<Asteroid> astList = new ArrayList<Asteroid>();
 	// ArrayList of Bullets
 	ArrayList<Bullet> bList = new ArrayList<Bullet>();
+	private final int BULLET_CAP = 5;
 	
 	/* Run once for every frame */
 	public void draw() {
@@ -44,20 +66,27 @@ public class Main extends PApplet {
 		player.move();
 		player.draw(this);
 		
-		// Move and Draw all asteroids
+		// asteroid stuff
 		for(int i = 0;i<astList.size();i++) {
 			// check collisions
 			for (int j = 0; j < bList.size(); j++) {
 				if(astList.get(i).isCollidingWithBullet(bList.get(j))) {
-					// colliding
-					System.out.println("Bullet colliding with asteroid");
+					/* colliding logic - needs to: */
+					// destroy asteroid
+					astList.get(i).destroyAsteroid();
+					astList.remove(i);
+					i--; // this might fuck it up, but also might be crutial to not fucking up
+					// destroy bullet
+					bList.get(j).close();
+					bList.remove(j);
+					j--;
+					// score up
 					
 				}
 			}
-			
+			// Move and Draw all asteroids
 			astList.get(i).move();
 			astList.get(i).draw(this);
-			//temp.draw(this);
 		}
 		
 		// Move and Draw all bullets
@@ -89,9 +118,10 @@ public class Main extends PApplet {
 		}
 	}
 	
+	/* Create a new Bullet, unless more than BULLET_CAP are in exsistence */
 	private void newB () {
 		// Check if already at bullet cap
-		if(Bullet.getBCount()<5) {
+		if(Bullet.getBCount()<BULLET_CAP) {
 			// if not at bullet cap, create new bullet at player x,y with player direction
 			Bullet b = new Bullet(player.getX(), player.getY(), player.getDirection(), this);
 			b.setup(this);
