@@ -5,6 +5,7 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 import entities.*;
+import util.*;
 
 public class Main extends PApplet {
 	
@@ -18,10 +19,27 @@ public class Main extends PApplet {
 	// ArrayList of Bullets
 	ArrayList<Bullet> bList = new ArrayList<Bullet>();
 	
+	//Line l = new Line(new Point(0,0), new Point(0,0));
+	ArrayList<Line> lList = new ArrayList<Line>();
+	
+	
+	public void drawLine(Line l) {
+		lList.add(l);
+	}
+	
 	/* Run once for every frame */
 	public void draw() {
 		// Clear the screen
 		clear();
+		
+		//debugging collisions
+		stroke(255,0,0);
+		for(int i = 0; i<lList.size();i++) {
+			Line l = lList.get(i);
+			line(l.p1.x,l.p1.y,l.p2.x,l.p2.y);
+		}
+		stroke(255);
+		
 		
 		// check input then move the player
 		if(player.isAccelerating) {
@@ -48,8 +66,8 @@ public class Main extends PApplet {
 		for(int i = 0;i<astList.size();i++) {
 			// check collisions
 			for (int j = 0; j < bList.size(); j++) {
-				System.out.println(bList.get(j));
-				if(astList.get(i).isCollidingWithBullet(bList.get(j))) {
+				//System.out.println(bList.get(j));
+				if(astList.get(i).isCollidingWithBullet(bList.get(j), this)) {
 					// colliding
 					System.out.println("Bullet colliding with asteroid");
 					
@@ -65,6 +83,8 @@ public class Main extends PApplet {
 		for (int i = 0; i<bList.size();i++) {
 			if(bList.get(i).move() == 1) {
 				bList.remove(i);
+				lList.clear();
+				System.out.println("\n\n\n\n\n\n\n");
 			} else {
 				bList.get(i).draw(this);
 			}

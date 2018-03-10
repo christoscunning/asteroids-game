@@ -58,7 +58,7 @@ public class Asteroid {
 		p.shape(asteroid,x,y);
 	}
 	
-	public boolean isCollidingWithBullet (Bullet b) {
+	public boolean isCollidingWithBullet (Bullet b, Main m) {
 		int numVertex = asteroid.getVertexCount();
 		boolean colliding = false;
 		Line l;
@@ -69,12 +69,16 @@ public class Asteroid {
 				l = new Line(asteroid.getVertex(i), asteroid.getVertex(0));
 			} else {
 				// else just get line between vertex and next vertex
-				l = new Line(asteroid.getVertex(i), asteroid.getVertex(i+1));
+				//l = new Line(asteroid.getVertex(i), asteroid.getVertex(i+1));
+				l = new Line(new Point(x + asteroid.getVertex(i).x, y+asteroid.getVertex(i).y), new Point(x+asteroid.getVertex(i+1).x, y+asteroid.getVertex(i+1).y));
+				m.drawLine(l);
+				//System.out.println("vertex i: "+asteroid.getVertex(i) + " vertex next: "+ asteroid.getVertex(i+1));
 				
 			}
+			// debugging
 			if(LinePointCollision.isPointCollidingWithLine(new Point(b.getXCenter(), b.getYCenter()), l)) colliding = true;
 		}
-		System.out.println("is colliding: " + colliding);
+		//System.out.println("is colliding: " + colliding);
 		return colliding;
 	}
 	
