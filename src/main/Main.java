@@ -46,6 +46,16 @@ public class Main extends PApplet {
 		
 		// Move and Draw all asteroids
 		for(int i = 0;i<astList.size();i++) {
+			// check collisions
+			for (int j = 0; j < bList.size(); j++) {
+				System.out.println(bList.get(j));
+				if(astList.get(i).isCollidingWithBullet(bList.get(j))) {
+					// colliding
+					System.out.println("Bullet colliding with asteroid");
+					
+				}
+			}
+			
 			astList.get(i).move();
 			astList.get(i).draw(this);
 			//temp.draw(this);
@@ -76,7 +86,6 @@ public class Main extends PApplet {
 			player.isTurningCCW = true;
 		}
 		if (key == 32) {
-			System.out.println("space");
 			newB();
 		}
 	}

@@ -2,6 +2,7 @@ package entities;
 
 import processing.core.PApplet;
 import processing.core.PShape;
+import util.*;
 import main.Main;
 
 /** The asteroid class
@@ -55,6 +56,26 @@ public class Asteroid {
 	
 	public void draw (PApplet p) {
 		p.shape(asteroid,x,y);
+	}
+	
+	public boolean isCollidingWithBullet (Bullet b) {
+		int numVertex = asteroid.getVertexCount();
+		boolean colliding = false;
+		Line l;
+		for (int i = 0; i < numVertex; i++) {
+			// to avoid out of bounds exception
+			if(i == numVertex-1) {
+				// if last vertex, get line between last vertex and first vertex
+				l = new Line(asteroid.getVertex(i), asteroid.getVertex(0));
+			} else {
+				// else just get line between vertex and next vertex
+				l = new Line(asteroid.getVertex(i), asteroid.getVertex(i+1));
+				
+			}
+			if(LinePointCollision.isPointCollidingWithLine(new Point(b.getXCenter(), b.getYCenter()), l)) colliding = true;
+		}
+		System.out.println("is colliding: " + colliding);
+		return colliding;
 	}
 	
 	public void setup (PApplet p) {

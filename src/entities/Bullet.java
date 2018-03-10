@@ -65,14 +65,14 @@ public class Bullet {
 		
 		deltaT = Math.abs(lasttime - System.currentTimeMillis());
 		lasttime = System.currentTimeMillis();
-		System.out.println(lasttime);
+		//System.out.println(lasttime);
 		
 		maxDist += SPD * deltaT;
 		if(maxDist > 10000) {
 			close();
 			return 1;
 		}
-		System.out.println(maxDist);
+		//System.out.println(maxDist);
 		return 0;
 	}
 	
@@ -94,6 +94,14 @@ public class Bullet {
 	
 	public static int getBCount () {
 		return bcount;
+	}
+	
+	public float getXCenter () {
+		return x+bWIDTH;
+	}
+	
+	public float getYCenter () {
+		return y+bHEIGHT;
 	}
 	
 }
