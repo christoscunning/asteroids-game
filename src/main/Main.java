@@ -7,7 +7,7 @@ package main;
  * 		- player collision with asteroid
  * 		- score counter
  * 		- player lives
- * 		-
+ * 		- add bullet firing delay
  * 
  * 	Version 0.5 (Current)
  * 		- Added collision detection working between bullets and asteroids		
